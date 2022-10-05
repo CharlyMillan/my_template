@@ -2,4 +2,4 @@ version: 0.2
 phases:
   build:
     commands:
-      - echo "testing"
+      - flyway -url=jdbc:postgresql://newdab.cpkb5v3py7cd.us-east-1.rds.amazonaws.com:5432/postgres -user=postgres -password=Karlos1. info
