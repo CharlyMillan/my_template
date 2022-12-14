@@ -23,14 +23,18 @@ jobs:
 
       - name: Cache node modules
         uses: actions/cache@v3
+        id: my-cache
         with:
-          path: ~/my_new_file
-          key: sfdf
-          restore-keys: sfdf
+          path: my_new_file
+          key: ${{ runner.os }}
 
       # Runs a single command using the runners shell
       - name: Build images
         run: touch my_new_file
+
+      - name: Generate Prime Numbers
+        if: steps.my-cache.outputs.cache-hit != 'true'
+        run: echo si hay cache 
 
   # This workflow contains a single job called "deploy"
   deploy:
