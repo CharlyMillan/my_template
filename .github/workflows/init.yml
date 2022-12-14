@@ -26,7 +26,6 @@ jobs:
         run: |
           touch my_new_file
           echo "este es contenido del carchivo" > my_new_file
-          cat my_new_file
 
       - name: Caching
         uses: actions/cache@v3
@@ -43,9 +42,13 @@ jobs:
   deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-20.04
-
+    needs: [build]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Checking cache
+        if: steps.my-cache.outputs.cache-hit == 'true'
+        run: echo si hay cache
+        
       # Runs a single command using the runners shell
       - name: Kubernete deploy
         run: echo kubectl apply .........
