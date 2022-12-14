@@ -26,6 +26,7 @@ jobs:
         run: |
           touch my_new_file
           echo "este es contenido del carchivo" > my_new_file
+          cat my_new_file
 
       - name: Caching
         uses: actions/cache@v3
