@@ -21,20 +21,20 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Cache node modules
-        uses: actions/cache@v3
-        id: my-cache
-        with:
-          path: my_new_file
-          key: ${{ runner.os }}
-
       # Runs a single command using the runners shell
       - name: Build images
         run: touch my_new_file
 
-      - name: Generate Prime Numbers
+      - name: Caching
+        uses: actions/cache@v3
+        id: my-cache
+        with:
+          path: my_new_file
+          key: ${{ runner.os }}-abc
+
+      - name: Checking cache
         if: steps.my-cache.outputs.cache-hit != 'true'
-        run: echo si hay cache 
+        run: cat my_new_file
 
   # This workflow contains a single job called "deploy"
   deploy:
