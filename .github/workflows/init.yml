@@ -23,7 +23,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Build images
-        run: touch my_new_file
+        run: |
+          touch my_new_file
+          echo "este es contenido del carchivo" > my_new_file
 
       - name: Caching
         uses: actions/cache@v3
