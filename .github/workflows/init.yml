@@ -8,7 +8,7 @@ on:
       - actions
 
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  #workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,6 +18,13 @@ jobs:
     runs-on: ubuntu-20.04
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Caching
+        uses: actions/cache@v3
+        id: my-cache
+        with:
+          path: my_new_file
+          key: ${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
@@ -26,13 +33,6 @@ jobs:
         run: |
           touch my_new_file
           echo "este es contenido del carchivo" > my_new_file
-
-      - name: Caching
-        uses: actions/cache@v3
-        id: my-cache
-        with:
-          path: my_new_file
-          key: ${{ runner.os }}-abc
 
       - name: Checking cache
         if: steps.my-cache.outputs.cache-hit == 'true'
@@ -50,8 +50,8 @@ jobs:
         id: my-cache
         with:
           path: my_new_file
-          key: ${{ runner.os }}-abc
-          
+          key: ${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+
       - name: Checking cache
         if: steps.my-cache.outputs.cache-hit != 'true'
         run: echo NO hay cache
@@ -59,3 +59,10 @@ jobs:
       # Runs a single command using the runners shell
       - name: Kubernete deploy
         run: echo kubectl apply .........
+
+  test:
+    runs-on: ubuntu-22.04
+    needs: [deploy]
+    steps:
+      - name: testing
+        run: echo "testing, testing ..."
