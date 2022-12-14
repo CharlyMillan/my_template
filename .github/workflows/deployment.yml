@@ -38,6 +38,10 @@ jobs:
         if: steps.my-cache.outputs.cache-hit == 'true'
         run: cat my_new_file
 
+      - name: docker build
+        working-directory: .
+        run: docker build -f Dockerfile . -t my-test
+
   # This workflow contains a single job called "deploy"
   deploy:
     # The type of runner that the job will run on
@@ -59,9 +63,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: Kubernete deploy
         run: echo kubectl apply .........
-  
-      - name: docker build
-        run: docker build -f Dockerfile . -t my-test
 
   test:
     runs-on: ubuntu-22.04
