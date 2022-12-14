@@ -9,6 +9,8 @@ on:
 jobs:
   building:
     uses: CharlyMillan/.github/.github/workflows/reusable_build.yml@main
+    with: 
+      docker_working_directory: docker
 
   deploying:
     uses: CharlyMillan/.github/.github/workflows/reusable_deploy.yml@main
