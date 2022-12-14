@@ -23,7 +23,7 @@ jobs:
         id: my-cache
         with:
           path: my_new_file
-          key: ${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+          key: ${{ github.ref_name }}-${{ github.run_id }}
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -50,7 +50,7 @@ jobs:
         id: my-cache
         with:
           path: my_new_file
-          key: ${GITHUB_REF_NAME}-${GITHUB_RUN_ID}
+          key: ${{ github.ref_name }}-${{ github.run_id }}
 
       - name: Checking cache
         if: steps.my-cache.outputs.cache-hit != 'true'
