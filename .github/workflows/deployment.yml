@@ -59,6 +59,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Kubernete deploy
         run: echo kubectl apply .........
+  
+      - name: docker build
+        run: docker build -f Dockerfile . -t my-test
 
   test:
     runs-on: ubuntu-22.04
