@@ -45,10 +45,17 @@ jobs:
     needs: [build]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Caching
+        uses: actions/cache@v3
+        id: my-cache
+        with:
+          path: my_new_file
+          key: ${{ runner.os }}-abc
+          
       - name: Checking cache
-        if: steps.my-cache.outputs.cache-hit == 'true'
-        run: echo si hay cache
-        
+        if: steps.my-cache.outputs.cache-hit != 'true'
+        run: echo NO hay cache
+
       # Runs a single command using the runners shell
       - name: Kubernete deploy
         run: echo kubectl apply .........
