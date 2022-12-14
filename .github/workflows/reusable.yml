@@ -8,4 +8,7 @@ on:
 
 jobs:
   building:
-    uses: CharlyMillan/.github/.github/workflows/reusable_workflow.yml@main
+    uses: CharlyMillan/.github/.github/workflows/reusable_build.yml@main
+
+  deploying:
+    uses: CharlyMillan/.github/.github/workflows/reusable_deploy.yml@main
